@@ -52,7 +52,6 @@ function Pokedex() {
     fetchData();
   }, []);
   
-  
   const loadingPokemon = async data => {
     let _pokemonData = await Promise.all(
       data.map(async pokemon => {
