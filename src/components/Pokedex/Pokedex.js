@@ -32,20 +32,16 @@ function Pokedex() {
   const {nextUrl, prevUrl, loading } = state;
   
   const [pokemonData, setPokemonData] = useState([]);
-  // const [nextUrl, setNextUrl] = useState("");
-  // const [prevUrl, setPrevUrl] = useState("");
-  // const [loading, setLoading] = useState(true);
 
   const pokemonApi = "https://pokeapi.co/api/v2/pokemon";
 
   useEffect(() => {
     async function fetchData() {
-      //this function will handle the fetch of the pokemonData
+      
       let response = await getAllPokemon(pokemonApi);
 
       dispatch({type: ACTIONS.SET_URLS , payload: {nextUrlSet: response.next, prevUrlSet: response.previous, loadingSet: false}});
-      // setNextUrl(response.next);
-      // setPrevUrl(response.previous);
+      
       let pokemon = await loadingPokemon(response.results);
     }
     
@@ -65,26 +61,20 @@ function Pokedex() {
     };
     
     const next = async () => {
-      // setLoading(true);
 
     let data = await getAllPokemon(nextUrl);
     await loadingPokemon(data.results);
-    // setNextUrl(data.next);
-    // setPrevUrl(data.previous);
-    // setLoading(false);
 
     dispatch({type:ACTIONS.SET_URLS, payload: { nextUrlSet: data.next, prevUrlSet: data.previous, loadingSet: false}});
   };
 
   const previous = async () => {
-    // setLoading(true);
+    
     dispatch({type: ACTIONS.SET_URLS, payload: {...state, loadingSet:true}});
 
     let data = await getAllPokemon(prevUrl);
     await loadingPokemon(data.results);
-    // setNextUrl(data.next);
-    // setPrevUrl(data.previous);
-    // setLoading(false);
+    
     dispatch({type: ACTIONS.SET_URLS, payload: {nextUrlSet: data.next, prevUrlSet: data.previous, loadingSet: false}});
 
 
